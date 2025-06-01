@@ -1,3 +1,2 @@
 # The 3rd year's coursework at Lomonosov MSU, CMC,</br>on 3d motion estimation from raw videos</br>(using, possibly, multiple camera views)
-Working with motion estimation data collected from patients suffering from coxarthrosis, applying methods to clean the data <br>
-*Note that some of the IPython notebooks may not fully render on the Github website. In this case you can try downloading and opening them via Google Colab, for example
+All the code used in the process of this research and experimentation is included in this repository.
