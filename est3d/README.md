@@ -23,3 +23,12 @@ python infer_wild.py --vid_path input_video.mp4 --json_path input_json.json --ou
 From conda prompt with the "openmmlab" env activated:
 python inspect_mbert.py
 
+---FURTHER PROCESSING IF 2 CAMERAS ARE AVAILABLE---
+
+7. GET TWO 3D TRAJECTORIES ALIGNED VIA PROCRUSTES
+From conda prompt with the "openmmlab" env activated:
+python apply_procrustes.py
+
+8. FUSE THE TWO 3D TRAJECTORIES INTO ONE
+From conda prompt with the "openmmlab" env activated:
+python apply_procrustes.py
