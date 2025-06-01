@@ -5,8 +5,9 @@ The code that may be used in reproducing the results is located in the "est3d" f
 Курсовая (3й курс) по обработке видео и извлечению трехмерной позы человека из него.</br>
 В данном репозитории содержится код для верификации результатов</br>
 </br>
-Пайплайн:
+## Пайплайн:
 ![Pipeline](https://raw.githubusercontent.com/oscar-foxtrot/pose3d-coursework/main/assets/pipeline.png)
 </br>
-Пример результата:
+</br>
+## Пример результата:
 ![Result](https://raw.githubusercontent.com/oscar-foxtrot/pose3d-coursework/main/assets/results.gif)
