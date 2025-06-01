@@ -1,4 +1,4 @@
-# Using two files obtained via "apply_procrustes.py", get ONE prediction using fusion of the two files
+# Using two files obtained via "apply_procrustes.py", get ONE prediction using fusion of the two predictions
 
 import numpy as np
 import matplotlib.pyplot as plt
