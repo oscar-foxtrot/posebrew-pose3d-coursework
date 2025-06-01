@@ -135,7 +135,7 @@ def update(frame):
     '''
     return [scatter] + lines
 
-
+# UNCOMMENT IF YOU WISH TO OBTAIN THE ENSEMBLED PREDICTIONS AS A FILE
 #np.save('file_795_2_withoutnorm.npy', np.array(keypoints_3d, dtype=object))
 # Animation
 
