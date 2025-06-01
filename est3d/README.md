@@ -11,7 +11,7 @@ python bbox.py<br>
 From VSCode launched via "code" from conda prompt with OPENMMLAB env activated:<br>
 python best_to_alpha.py<br>
 
-4. CUT VIDEO TO FEED THE METADATA INTO MOTIONBERT:<br>
+4. CUT VIDEO TO FEED THE METADATA INTO MOTIONBERT (CUSTOMIZE THE TIME):<br>
 From anaconda prompt with the activated "motionbert" env:<br>
 ffmpeg -i input.mp4 -ss 00:00:02.700 -c:v libx264 -c:a aac output.mp4<br>
 
