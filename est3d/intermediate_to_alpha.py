@@ -1,3 +1,5 @@
+# Using the intermediate-representation file after applying tracking, get the 2D keypoints of the main trajectory
+
 import json
 import cv2
 
