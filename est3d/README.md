@@ -24,6 +24,7 @@ From conda prompt with the "openmmlab" env activated:
 python inspect_mbert.py
 
 
+     
 *---FURTHER PROCESSING IF 2 CAMERAS ARE AVAILABLE---*
 
 7. GET TWO 3D TRAJECTORIES ALIGNED VIA PROCRUSTES
