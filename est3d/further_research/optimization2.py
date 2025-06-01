@@ -83,6 +83,9 @@ result = minimize(objective, w0, method='SLSQP', bounds=bounds, constraints=cons
 print("Optimization result:", result)
 print("Optimal weights w:", result.x)
 
+from sklearn.metrics import r2_score
 plt.plot(d_t_ij.dot(result.x) / np.mean(d_t_ij.dot(result.x)))
 plt.plot(d_t_ij.dot(np.ones(n) / n) / np.mean(d_t_ij.dot(np.ones(n) / n)))
 plt.show()
+
+print(r2_score(d_t_ij.dot(result.x) / np.mean(d_t_ij.dot(result.x)), d_t_ij.dot(np.ones(n) / n) / np.mean(d_t_ij.dot(np.ones(n) / n))))
