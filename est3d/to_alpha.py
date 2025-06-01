@@ -8,8 +8,8 @@ with open('alpha.json', 'r') as f:
     alpha = json.load(f)
 '''
 
-
-with open('output_test232_469/predictions/file_469.json', 'r') as f:
+input_file_path = 'input_file.json'
+with open(input_file_path, 'r') as f:
     rtm = json.load(f)
 
 # print(alpha[0])
@@ -33,11 +33,13 @@ for i in range(len(rtm)):
 res1 = res[243 // 3:]
 res2 = res[243 // 3 * 2:]
 
-with open('output_test232_469/predictions/file_469_toalpha_0.json', 'w') as f:
+output_file_template = 'output_file'
+
+with open(f'{output_file_template}_toalpha_0.json', 'w') as f:
     json.dump(res, f, indent=4)
 
-with open('output_test232_469/predictions/file_469_toalpha_1.json', 'w') as f:
+with open(f'{output_file_template}_toalpha_1.json', 'w') as f:
     json.dump(res1, f, indent=4)
 
-with open('output_test232_469/predictions/file_469_toalpha_2.json', 'w') as f:
+with open(f'{output_file_template}_toalpha_2.json', 'w') as f:
     json.dump(res2, f, indent=4)
