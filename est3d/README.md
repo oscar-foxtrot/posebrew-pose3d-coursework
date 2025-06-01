@@ -2,7 +2,7 @@
 1. MMPOSE 2D KEYPOINTS DETECTION:<br>
 From conda prompt with the "openmmlab" env activated:<br>
 python inf.py<br>
-<br>
+
 2. GET MODIFIED MMPOSE JSON PREDICTIONS / GET INTERMEDIATE-FORMAT JSON FILES WITH TRACK IDS ADDED / PERFORM TRACKING AND GET JSONS WITH TRACK IDS:<br>
 From conda prompt with the "boxmot" env activated:<br>
 python bbox.py<br>
