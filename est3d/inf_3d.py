@@ -5,17 +5,17 @@ from mmpose.apis import MMPoseInferencer
 
 # Initialize 3D pose inferencer
 inferencer = MMPoseInferencer(
-    #pose2d='rtmpose-l_8xb512-700e_body8-halpe26-384x288'
-    #pose2d='rtmpose-m_8xb512-700e_body8-halpe26-256x192',  # explicitly set Halpe26 format
     pose3d='motionbert_dstformer-ft-243frm_8xb32-120e_h36m'
-    #pose2d='rtmpose-l_8xb256-420e_coco-256x192'
 )
+
+input_file_path='input_file.mp4'
+output_dir_path='output_file'
 
 # Run inference with automatic saving
 result_generator = inferencer(
-    inputs='neurologist/file_469.mp4',
+    inputs=input_file_path,
     show=True,
-    out_dir='output_test_mbert_469',
+    out_dir=output_dir_path,
     return_vis=True,
     save_pred=True,
     disable_norm_pose_2d=False
