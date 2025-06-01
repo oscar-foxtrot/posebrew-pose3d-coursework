@@ -8,8 +8,8 @@ inferencer = MMPoseInferencer(
     pose3d='motionbert_dstformer-ft-243frm_8xb32-120e_h36m'
 )
 
-input_file_path='input_file.mp4'
-output_dir_path='output_file'
+input_file_path = 'input_file.mp4'
+output_dir_path = 'output_file'
 
 # Run inference with automatic saving
 result_generator = inferencer(
