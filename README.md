@@ -6,7 +6,7 @@ The code that may be used in reproducing the results is located in the "est3d" f
 В данном репозитории содержится код для верификации результатов</br>
 </br>
 ## Пайплайн:
-![Pipeline](https://raw.githubusercontent.com/oscar-foxtrot/pose3d-coursework/main/assets/scheme.png)
+![Pipeline](https://raw.githubusercontent.com/oscar-foxtrot/pose3d-coursework/main/assets/pipeline.png)
 </br>
 </br>
 ## Пример результата:
