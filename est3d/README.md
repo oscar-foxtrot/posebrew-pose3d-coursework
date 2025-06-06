@@ -9,7 +9,7 @@ python bbox.py<br>
 
 3. TRANSLATION TO ALPHAPOSE FORMAT AND OBTAINING MULTIPLE [SHIFTED] SEQUENCES SIMULTANEOUSLY FROM MODIFIED MMPOSE JSON PREDICTIONS, GET MAIN PERSON TRACK IN ALPHAPOSE FORMAT:<br>
 From conda prompt with the "openmmlab" env activated:<br>
-python best_to_alpha.py<br>
+python intermediate_to_alpha.py<br>
 
 4. CUT VIDEO TO FEED THE METADATA INTO MOTIONBERT (CUSTOMIZE THE TIME):<br>
 From anaconda prompt with the activated "motionbert" env:<br>
