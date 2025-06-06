@@ -16,7 +16,7 @@ From anaconda prompt with the activated "motionbert" env:<br>
 ffmpeg -i input.mp4 -ss 00:00:02.700 -c:v libx264 -c:a aac output.mp4<br>
 
 5. MOTIONBERT INFERENCE ON 2D KEYPOINTS:<br>
-From anaconda prompt with the activated "motionbert" env:<br>
+From anaconda prompt with the activated "motionbert" env, from inside the MotionBERT repository:<br>
 python infer_wild.py --vid_path input_video.mp4 --json_path input_json.json --out_path output_video_and_keypoints<br>
 
 6. GET NORMALIZED ENSEMBLED PREDICTIONS FROM MOTIONBERT:<br>
