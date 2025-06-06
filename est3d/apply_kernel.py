@@ -1,5 +1,5 @@
 # Helper function for inspect_mbert.py.
-Although SPECIFY THE FILE INPUT FILE HERE
+# Although SPECIFY THE FILE INPUT FILE HERE
 
 def get_kpts():
 
