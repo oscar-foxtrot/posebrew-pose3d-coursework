@@ -1,4 +1,4 @@
-The other stuff that didn't really make its way into the coursework (experimental code).   
+The other stuff that either didn't really make its way into the coursework (experimental code) or was used for analysis.   
 Files for MotionBERT can be used in the following way: 
 Clone this:
 https://github.com/Walter0807/MotionBERT
