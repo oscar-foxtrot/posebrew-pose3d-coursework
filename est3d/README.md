@@ -34,3 +34,7 @@ python apply_procrustes.py<br>
 8. FUSE THE TWO 3D TRAJECTORIES INTO ONE<br>
 From conda prompt with the "openmmlab" env activated:<br>
 python combine_3d.py<br>
+
+
+## Note:
+Note that this directory contains almost all the code that I happened to write while making the coursework
