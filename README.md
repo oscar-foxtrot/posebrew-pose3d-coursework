@@ -5,7 +5,7 @@ An easy-to-set-up version is available [here](https://github.com/oscar-foxtrot/P
 </br>
 Курсовая (3й курс) по обработке видео и извлечению трехмерной позы человека из него.</br>
 В данном репозитории содержится код для верификации результатов</br>
-Простая в установке и использовании версия программ находится [здесь](https://github.com/oscar-foxtrot/PoseBrew).</br>
+Простая в установке и использовании версия программ находится [здесь](https://github.com/oscar-foxtrot/PoseBrew).</br></br>
 </br>
 ## Пайплайн:
 ![Pipeline](https://raw.githubusercontent.com/oscar-foxtrot/pose3d-coursework/main/assets/pipeline.png)
