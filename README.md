@@ -8,8 +8,8 @@ An easy-to-set-up version is available [here](https://github.com/oscar-foxtrot/P
 Простая в установке и использовании версия находится [здесь](https://github.com/oscar-foxtrot/PoseBrew).
 </br>
 ## Пайплайн:
-![Pipeline](https://raw.githubusercontent.com/oscar-foxtrot/pose3d-coursework/main/assets/pipeline.png)
+![Pipeline](https://raw.githubusercontent.com/oscar-foxtrot/posebrew-pose3d-coursework/main/assets/pipeline.png)
 </br>
 </br>
 ## Пример результата:
-![Result](https://raw.githubusercontent.com/oscar-foxtrot/pose3d-coursework/main/assets/results.gif)
+![Result](https://raw.githubusercontent.com/oscar-foxtrot/posebrew-pose3d-coursework/main/assets/results.gif)
