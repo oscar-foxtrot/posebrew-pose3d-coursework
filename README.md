@@ -3,7 +3,7 @@ All the code used in the process of this research and experimentation is include
 The code that may be used in reproducing the results is located in the "est3d" folder.</br>
 An easy-to-set-up version is available [here](https://github.com/oscar-foxtrot/PoseBrew).</br>
 </br>
-Курсовая (3й курс) по обработке видео и извлечению трехмерной позы человека из него.</br>
+Курсовая (3й курс) и ВКР по обработке видео и извлечению трехмерной позы человека из него.</br>
 В данном репозитории содержится код для верификации результатов</br>
 Простая в установке и использовании версия находится [здесь](https://github.com/oscar-foxtrot/PoseBrew).
 </br>
