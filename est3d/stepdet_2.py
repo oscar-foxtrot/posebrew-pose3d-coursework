@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from apply_kernel import get_kpts
 from scipy.ndimage import gaussian_filter1d
 from sklearn.metrics import silhouette_score
+from sklearn.mixture import GaussianMixture
 
 
 file_number = 474
@@ -127,8 +128,16 @@ features = (features - features.mean(axis=0)) / (features.std(axis=0) + 1e-8)
 
 clust_num = 2
 
-kmeans = KMeans(n_clusters=clust_num, random_state=0, n_init=10)
-labels = kmeans.fit_predict(features)
+gmm = GaussianMixture(
+    n_components=2,
+    covariance_type="full",
+    random_state=0,
+    n_init=5
+)
+
+labels = gmm.fit_predict(features)
+
+probs = gmm.predict_proba(features)
 
 cluster_scores = []
 
@@ -176,7 +185,7 @@ from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 
 n_components = len(features[0])
-pca = PCA(n_components=n_components)
+pca = PCA(n_components=4)
 features_pca = pca.fit_transform(features)
 
 tsne = TSNE(
@@ -210,4 +219,18 @@ plt.title("PCA Explained Variance (Scree Plot)")
 plt.xlabel("Component")
 plt.ylabel("Variance ratio")
 plt.grid()
+plt.show()
+
+
+
+contact_cluster = np.argmin(cluster_scores)
+plt.figure(figsize=(12, 4))
+
+plt.plot(probs[:, contact_cluster], label="contact probability")
+plt.plot(cosine, alpha=0.5, label="cosine (sanity)")
+plt.legend()
+plt.show()
+
+
+plt.plot(labels)
 plt.show()
