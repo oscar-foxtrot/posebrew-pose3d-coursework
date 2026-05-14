@@ -66,10 +66,10 @@
 
 
 % = (!!!) Здесь впишите свои данные =
+\cwAuthor{Фостенко Олег Андреевич}
 %  - Название работы -
 \cwTitle{Реконструкция относительной трехмерной позы человека по необработанным видеоданным в условиях отсутствия метаданных}
 %  - Как вас зовут, В РОДИТЕЛЬНОМ ПАДЕЖЕ -
-\cwAuthor{Фостенко Олега Андреевича}
 %  - Номер группы -
 \cwGroup{411}
 %  - Степень, должность и Фамилия И.О. научного руководителя -
@@ -2503,53 +2503,159 @@ $(X, Y, Z)^T$ и $t_j$ на коэффициент масштаба $s$, то п
 останется верным.
 
 
+На примере графиков для длины голени (используем видео, упомянутое выше)
+проиллюстрируем наследование ошибки последующими
+элементами пайплайна от предыдущих. В идеализированном случае графики должны
+изображать константу.
 
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/shin_length_left_101.pdf}
+    \caption{Длина левой голени.}
+    \label{fig:left_shin}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/shin_length_right_101.pdf}
+    \caption{Длина правой голени.}
+    \label{fig:right_shin}
+  \end{minipage}
+\end{figure}
 
+Рис. \ref{fig:left_shin}, \ref{fig:right_shin} иллюстрируют тот факт, что
+ошибочные предсказания двумерных точек приводят к ошибкам как в монокулярных
+предсказаниях (а следовательно, и в результатах слияния),
+так и в триангуляции. Причем триангуляция может неявно наследовать ошибку
+монокулярных предсказаний через потенциально неверно определенные фокальные расстояния
+(см. раздел \ref{multicam}).
 
 \newpage
+Главное ограничение на применимость триангуляции задается относительным
+расположением камер и реконструируемой трехмерной точки в пространстве.
+Реконструкция осуществляется пересечением
+лучей, исходящих из центров камер. Прямой угол является оптимальным углом
+пересечения лучей в случае установки с двумя камерами, так как в такой конфигурации
+ошибка реконструкции из-за шума в 2D детекции минимальна.
+Ошибка реконструкции растет по мере
+удаления величины угла пересечения лучей от значения в 90
+градусов~\cite{rahimian2015optimal}
+(при константных расстояниях от реконструируемой точки до камер).
+
+
 %\vspace{1em}
 \subsection{Визуальные примеры реконструкции}
 %\vspace{0.5em}
 
-В данном разделе представлены иллюстрации результатов работы различных методов и
+В данном разделе представлены несколько иллюстраций результатов работы различных методов и
 элементов пайплайна.
+
+На рис. \ref{fig:before_procr}, \ref{fig:after_procr} приведен пример наложения
+трехмерных облаков точек (здесь --- поз) с помощью прокрустова преобразования.
+Две позы соответственно отвечают одному и тому же моменту времени, но предсказаны
+по видео с разных камер.
 
 \begin{figure}[H]
   \centering
   \begin{minipage}[b]{0.45\textwidth}
     \centering
     \includegraphics[width=\textwidth]{images/f469_350.png}
-    \caption{Восстановленная относительная поза, соответствующая кадру №350 из видео 2.}
-    \label{fig:pose3d1}
+    \caption*{Восстановленная относительная поза для первого видео.}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.45\textwidth}
     \centering
     \includegraphics[width=\textwidth]{images/f474_404.png}
-    \caption{Восстановленная относительная поза, соответствующая кадру №404 из видео 3.}
-    \label{fig:pose3d2}
+    \caption*{Восстановленная относительная поза для второго видео.}
   \end{minipage}
+  \caption{Относительные трехмерные позы до выравнивания с помощью
+  прокрустова преобразования.}
+  \label{fig:before_procr}
 \end{figure}
 
 \begin{figure}[H]
+  \vspace*{-10mm}
   \centering
   \begin{minipage}[b]{0.45\textwidth}
     \centering
     \includegraphics[width=\textwidth]{images/fused_300.png}
-    \caption{Наложение относительных поз с помощью прокрустова преобразования.}
-    \label{fig:pose3d3}
+    \caption*{Наложение относительных поз с помощью прокрустова преобразования.}
   \end{minipage}
   \hfill
   \begin{minipage}[b]{0.45\textwidth}
     \centering
     \includegraphics[width=\textwidth]{images/fused_combined_300.png}
-    \caption{Уточненная в результате слияния относительная поза.}
-    \label{fig:pose3d4}
+    \caption*{Уточненная в результате слияния относительная поза.}
+  \end{minipage}
+  \caption{Относительные трехмерные позы после наложения с помощью
+  прокрустова преобразования.}
+  \label{fig:after_procr}
+\end{figure}
+
+
+
+На рис. \ref{fig:monocam_3d}, \ref{fig:monocam_reproj} представлен результат
+восстановления сцены с одной камерой, включающий оценку фокусного расстояния
+камеры и 3D позы в мировых координатах.
+
+\begin{figure}[ht]
+  \centering
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/reconstr_3d_monocam.pdf}
+    \caption{Изображение трехмерной сцены. Зеленой меткой обозначена камера. Зеленым отрезком --- оптическая ось.}
+    \label{fig:monocam_3d}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/reprojection_101_mono.pdf}
+    \caption{Сравнение репроекции восстановленной позы
+    с оригинальными 2D предсказаниями.}
+    \label{fig:monocam_reproj}
   \end{minipage}
 \end{figure}
 
 
-\newpage
+На рис. \ref{fig:triang_3d}, \ref{fig:triang_reproj} представлен результат
+восстановления сцены с двумя камерами, включающий оценку параметров камер
+и оценку трехмерной позы в мировых координатах с помощью триангуляции.
+
+\begin{figure}[!ht]
+  \vspace{-3mm}
+  \centering
+  \begin{minipage}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/reconstruction_triang_1.pdf}
+    \caption*{Ракурс 1.}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{images/reconstruction_triang_2.pdf}
+    \caption*{Ракурс 2.}
+  \end{minipage}
+  \caption{Изображение восстановленной трехмерной сцены при наличии двух камер
+  с двух ракурсов. Зелеными
+  метками обозначено положение камер в пространстве. Зелеными отрезками --- 
+  направления оптических осей камер.}
+  \label{fig:triang_3d}
+\end{figure}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=1\textwidth]{images/reprojection_101_102_triang_cropped.pdf}
+  \caption{Результат репроекции триангулированной позы с учетом предсказанных
+  фокальных расстояний камер. По координатным осям отложены пиксели.
+  Под двумерным предсказанием понимаются 2D точки, предсказанные по видео с помощью
+  RTMPose, и использованные для триангуляции.}
+  \label{fig:triang_reproj}
+\end{figure}
+
+
+
 
 
 
