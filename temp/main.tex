@@ -1,0 +1,359 @@
+\documentclass[9pt,aspectratio=169]{beamer}
+
+\usepackage[T1,T2A]{fontenc}
+
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{statistics}
+
+\usepackage{caption}
+
+\usepackage[
+    backend=biber,
+    style=gost-numeric,
+    language=auto,
+    bibencoding=utf8,
+    url=false,
+    doi=false,
+    isbn=false,
+    defernumbers=true,
+]{biblatex}
+
+%\addbibresource{references.bib}
+
+\defbibfilter{englishonly}{
+  keyword=english
+}
+
+\defbibfilter{russianonly}{
+  keyword=russian
+}
+
+\defbibfilter{links}{
+  keyword=link
+}
+
+\usepackage{makecell}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage[english,russian]{babel}
+
+%  - Гиперссылки (url, \ref-ссылки, \cite-ссылки)
+\usepackage{hyperref}
+\usepackage{ragged2e}
+
+\usetheme{Madrid}
+
+\setbeamersize{text margin left=0.9cm, text margin right=0.9cm}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+\setbeamertemplate{title page}{
+    \begin{centering}
+    
+    \vspace{1cm}
+
+    \begin{beamercolorbox}[sep=8pt,center,rounded=true,shadow=true]{title}
+        \usebeamerfont{title}\inserttitle
+    \end{beamercolorbox}
+    \vspace{0.8cm}
+
+    {\usebeamerfont{author}\insertauthor\par}
+    \vspace{0.8cm}
+
+    \begin{minipage}{0.6\textwidth}
+    \end{minipage}
+    \vfill
+    \hfill
+    \begin{minipage}{0.31\textwidth}
+        \raggedright
+        Научный руководитель: \\
+        \;\;\;\;\;к.ф.-м.н., доцент \\
+        \;\;\;\;\;Белянкин Г.А.
+    \end{minipage}
+
+    \vfill
+    \vfill
+    \vfill
+    \vfill
+    \vfill
+    {\usebeamerfont{date}\insertdate\par}
+
+    \end{centering}
+}
+\setbeamerfont{title}{size=\LARGE,series=\bfseries}
+
+\setbeamerfont{frametitle}{size=\LARGE,series=\bfseries}
+
+\setbeamertemplate{enumerate items}[square]
+
+\title{Реконструкция относительной трехмерной позы человека
+по необработанным видеоданным в условиях отсутствия метаданных}
+\author{Фостенко Олег Андреевич, группа 411 \\
+Факультет вычислительной математики и кибернетики \\
+МГУ~им.~М.~В.~Ломоносова, кафедра исследования операций}
+\date{Москва, 2026}
+
+\begin{document}
+
+\frame{\titlepage}
+
+
+
+
+
+\begin{frame}{Актуальность и цель}
+
+Оценка (восстановление) положения ключевых точек тела человека в пространстве важна
+для количественного анализа движений.
+
+Большая часть современных подходов требует предварительной калибровки
+камер и использования специализированного
+оборудования.
+
+В данной работе предлагается метод восстановления трехмерной позы, не
+требующий настройки и предъявляющий минимальные требования к оборудованию.
+
+\vfill 
+
+\begin{block}{Цель}
+Разработать метод восстановления трехмерной позы человека
+по необработанным видеоданным без калибровки камер при наличии в качестве
+оборудования лишь одной или нескольких (двух) камер.
+\end{block}
+
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{Цель}
+
+%REMOVE AFTER REMOVE AFTER REMOVE AFTER
+
+\begin{columns}
+
+\column{0.5\textwidth}
+\centering
+<Блок с изображением некоторого кадра из видео>
+
+\column{0.5\textwidth}
+\centering
+<Блок с изображением трехмерных ключевых точек
+(визуализация Matplotlib, соответствующая кадру слева на данном слайде)>
+
+\end{columns}
+%REMOVE BEFORE REMOVE BEFORE REMOVE BEFORE
+
+\end{frame}
+
+
+
+
+
+\begin{frame}{Задачи}
+
+\begin{columns}
+
+% LEFT SIDE: TEXT
+\column{0.65\textwidth}
+
+Вход:
+видеоряд \(V = (I_1, \dots, I_T), \quad \text{где } I_t \in \mathbb{R}^{H \times W \times 3}\) --- $t$-й кадр.
+
+\vspace{0.5em}
+
+Требуется построить способ обработки видео, включающий следующие этапы:
+
+\begin{enumerate}
+    \justifying
+    \item Оценка 2D позы (ключевые точки на видео):
+    \[
+        S = (S_1,\dots,S_T), \quad S_t \text{ --- 2D поза на $t$-м кадре:}
+    \]
+    \[
+        S_t = (p_t^1(I_t), \dots, p_t^K(I_t)), \quad p_t^j = (u_t^j,v_t^j,c_t^j) \in \mathbb{R}^3,
+    \]
+    где $p_t^j$ --- тройка, характеризующая двумерную ключевую точку, в которой
+    \((u^t_j,v^t_j)\) --- координаты точки в пиксельном пространстве на $t$-м кадре,
+    \(c_j\) --- уверенность модели на $t$-м кадре,
+    \(K\) --- число ключевых точек, описывающих 2D позу человека, \(t=1,\dots,T\).
+
+\end{enumerate}
+
+% RIGHT SIDE: IMAGE
+\column{0.35\textwidth}
+<Блок с изображением двумерной скелетной модели, наложенной
+на некоторый кадр из видео>
+
+\end{columns}
+
+\end{frame}
+
+
+
+\begin{frame}{Задачи}
+
+\begin{columns}
+
+% LEFT SIDE: TEXT
+\column{0.65\textwidth}
+
+\begin{enumerate}
+\setcounter{enumi}{1}
+    \item Восстановление относительной трехмерной позы:
+    \[
+        P = (P_1, \dots, P_T), \quad P_t \in \mathbb{R}^{3 \times M},
+    \]
+    где \(M\) -- число ключевых точек, описывающих 3D позу человека, \(t=1,\dots,T\).
+\end{enumerate}
+
+
+% RIGHT SIDE: IMAGE
+\column{0.35\textwidth}
+<Блок с изображением трехмерной скелетной модели>
+
+\end{columns}
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}{Задачи}
+
+\begin{columns}
+
+% LEFT SIDE: TEXT
+\column{0.65\textwidth}
+
+Относительная трехмерная поза --- набор ключевых точек скелета
+без глобального положения в сцене.
+
+Глобальная трехмерная поза --- положение и ориентация
+в системе координат камеры.
+
+\begin{enumerate}
+\setcounter{enumi}{2}
+    \item Разработка метода оценки трехмерной позы в мировых
+    координатах при наличии одной камеры (монокулярный режим)
+    \item Разработка метода оценки трехмерной позы в мировых
+    координатах при наличии двух камер (режим стерео).
+
+\end{enumerate}
+
+
+% RIGHT SIDE: IMAGE
+\column{0.35\textwidth}
+<Блок с изображением трехмерной скелетной модели>
+
+\end{columns}
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}{Оценка относительной позы}
+
+\begin{columns}
+
+% LEFT SIDE: BLOCK_0
+\column{0.65\textwidth}
+
+Для оценки 2D позы и получения относительной 3D позы
+используются нейросетевые модели.
+
+\vspace{0.8em}
+
+Для подавления артефактов на стыках окон при предсказании 
+трехмерной позы используется
+временное сглаживание с гауссовским ядром.
+
+\vspace{0.2em}
+
+<Диаграмма, графически показывающая перекрывающиеся окна с
+визуализацией гауссовских "колоколов" (как здесь
+\url{https://miro.medium.com/v2/resize:fit:1100/format:webp/
+1*O0wfmYfbkrMZxkMaVqR7ww.png})\:
+>
+
+% RIGHT SIDE: IMAGE
+\column{0.35\textwidth}
+<
+Простая диаграмма со следующим текстом:
+"Оценка 2D позы покадрово с помощью предобученной сверточной
+нейросети на базе CSPNeXt" 
+$\rightarrow$ "Оценка 3D позы на окнах длиной 243 кадра
+предобученной трансформерной модели на базе DSTFormer" 
+$\rightarrow$ "Временное сглаживание"\:>
+
+
+\end{columns}
+
+\end{frame}
+
+
+
+
+
+
+
+
+\begin{frame}{Основные подзадачи}
+
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{block}{Задачи}
+\begin{itemize}
+    \item разработка метода восстановления относительной 3D позы человека по видеоданным;
+    \item создание метода оценки глобальной позы в моно-камерном режиме (одна камера);
+    \item создание метода оценки глобальной позы в режиме стерео (две камеры).
+\end{itemize}
+\end{block}
+
+В данной работе основное внимание уделяется применению методов компьютерного
+зрения для автоматического восстановления 2D- и 3D-координат ключевых
+суставных точек человека на основе видео. Для решения задачи используются
+state-of-the-art (SOTA) нейросетевые модели, обученные на больших
+датасетах с разметкой ключевых точек.
+
+В отличие от подходов, основанных на использовании носимых
+устройств (сенсоров)~\cite{conf1,conf2}, предлагаемый метод не
+требует дополнительного оборудования. В работе рассматриваются два
+варианта съемки: моно- и мультикамерный (с двумя камерами). При этом
+оба варианта реализованы без проведения калибровки камер и точного
+определения их взаимного расположения. Это делает подход потенциально
+применимым в ситуациях с ограниченным техническим оснащением.
+
+
+
+
+\end{document}
