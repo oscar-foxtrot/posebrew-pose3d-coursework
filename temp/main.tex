@@ -19,8 +19,7 @@
     isbn=false,
     defernumbers=true,
 ]{biblatex}
-
-%\addbibresource{references.bib}
+\addbibresource{references.bib}
 
 \defbibfilter{englishonly}{
   keyword=english
@@ -53,6 +52,7 @@
 
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}[frame number]
+
 
 \setbeamertemplate{title page}{
     \begin{centering}
@@ -690,12 +690,12 @@ V_{t-1}(i)\, a_{ij}\, p_j(t)
 
 \begin{block}{Задача Прокруста / Прокрустово преобразование}
 Пусть даны две матрицы \( A, B \in \mathbb{R}^{n \times d} \).
-Требуется найти ортогональную матрицу \( R \in \mathbb{R}^{d \times d} \), число \( s \in \mathbb{R} \) и вектор переноса \( \mathbf{t}_{\text{trans}} \in \mathbb{R}^d \) такие, что на них достигается
+Требуется найти ортогональную матрицу \( R \in \mathbb{R}^{d \times d} \), число \( s \in \mathbb{R} \) и вектор переноса \( \mathbf{t} \in \mathbb{R}^d \) такие, что на них достигается
 \[
-    \min_{s, R, \mathbf{t}_{\text{trans}}} \| B - s A R - \mathbf{1} \mathbf{t}_{\text{trans}}^T \|_F^2
+    \min_{s, R, \mathbf{t}} \| B - s A R - \mathbf{1} \mathbf{t}^T \|_F^2
 \]
 где \( \mathbf{1} \in \mathbb{R}^n \) --- вектор из единиц, и \( R \) удовлетворяет условию ортогональности: $R^T R = I$.\\
-$\mathbf{1}$ и $\mathbf{t}_{\text{trans}}$ есть вектор-столбцы.
+$\mathbf{1}$ и $\mathbf{t}$ есть вектор-столбцы.
 \end{block}
 
 Интуитивно, данное преобразование поворачивает, переносит
@@ -717,7 +717,7 @@ $\mathbf{1}$ и $\mathbf{t}_{\text{trans}}$ есть вектор-столбцы
 
 \begin{frame}{Восстановление глобальной позы в режиме стерео}
 
-Оптимальные $R, t, s$ находятся в явной форме:<цитата Schonemann, Carroll>
+Оптимальные $R, t, s$ находятся в явной форме\footfullcite{conf32}.:
 
 1) Матрицы центрируются по столбцам:
     \[
@@ -747,7 +747,7 @@ $\mathbf{1}$ и $\mathbf{t}_{\text{trans}}$ есть вектор-столбцы
 
 3) Находится оптимальный вектор переноса и масштаб:
 \[
-\mathbf{t}_{\text{trans}} = \frac{1}{n} (B - s A R)^T \mathbf{1} =
+\mathbf{t} = \frac{1}{n} (B - s A R)^T \mathbf{1} =
 \bar{B} - s R^T \bar{A} = (\bar{B}^T - s \bar{A}^T R)^T,
 \quad \quad
 s = \frac{tr(\Sigma)}{\|A_0\|^2_F}
@@ -755,6 +755,32 @@ s = \frac{tr(\Sigma)}{\|A_0\|^2_F}
 
 
 \end{frame}
+
+
+
+
+
+\begin{frame}{Восстановление глобальной позы в режиме стерео}
+
+\begin{columns}
+\column{0.3\textwidth}
+Пример наложения облаков точек (здесь --- поз)
+с помощью прокрустова преобразования представлен на рисунке справа.
+
+\column{0.65\textwidth}
+\centering
+\includegraphics[width=0.4\textwidth]{images/f469_350.png}
+\includegraphics[width=0.4\textwidth]{images/f474_404.png}
+
+\includegraphics[width=0.7\textwidth]{images/fused_300.png}
+
+\end{columns}
+\end{frame}
+
+
+
+
+
 
 
 
@@ -780,9 +806,6 @@ s = \frac{tr(\Sigma)}{\|A_0\|^2_F}
 \includegraphics[width=0.44\textwidth]{images/offset_101_102_marg400.pdf}
 
 \end{frame}
-
-
-
 
 
 
@@ -962,22 +985,127 @@ $(f_1, f_2)$ и находя для каждой из них значение м
 <<схожести>> триангулированной глобальной позы и относительной
 априорной, оцененной с помощью
 нейросети.
-
+\vspace{-1em}
 \begin{columns}
-\column{0.4\textwidth}
-\vspace{-5em}
+\column{0.38\textwidth}
+Получаемую метрику назовем <<ошибка реконструкции>>.
+
 Выражая $f_1=e^{z_1}, f_2=e^{z_2}$, получаем задачу безусловной
 оптимизации отн. $(z_1, z_2)$. В работе предлагается решать
 ее с помощью метода Нелдера-Мида<цитата Nelder-Mead>.
 
-Типичный ландшафт функции потерь визуализирован на рисунке ниже:
-\column{0.5\textwidth}
+Типичный ландшафт функции потерь визуализирован на рисунке справа:
+\column{0.55\textwidth}
+\hspace*{1em}
 \includegraphics[width=1\textwidth]
 {images/reconstr_err_101_102_clip025.pdf}
 \end{columns}
 \end{frame}
 
 
+
+
+
+
+\begin{frame}{Ограничения модели}
+
+\begin{columns}
+
+\column{0.6\textwidth}
+\begin{enumerate}
+    \item Для случая установки с двумя камерами (стерео):
+    \begin{itemize}
+        \item Синхронизация может быть выполнена некорректно,
+        если движение человека на протяжении всего видео является
+        периодическим. На рисунке справа графически
+        представлен результат вычисления метрики похожести поз
+        для различных смещений видео 1 относительно видео 2 для видео,
+        на котором человек идет в одном направлении.
+        \item При расположении центров двух камер и
+        реконструируемых точек вблизи одной прямой на протяжении
+        всего видео --- зашумленная триангуляция и потенциально
+        некорректное определение фокальных расстояний.
+    \end{itemize}
+    \item В случае установки с одной камерой:
+    \begin{itemize}
+        \item Неточное восстановление позы при большом удалении субъекта
+        от камеры (в силу уменьшения точности восприятия глубины с
+        удалением от камеры).
+    \end{itemize}
+\end{enumerate}
+
+
+\column{0.4\textwidth}
+
+\includegraphics[width=1\textwidth]{images/offset_469_474_marg40.pdf}
+
+\end{columns}
+
+\end{frame}
+
+
+
+
+\begin{frame}{Результаты. Монокулярный режим.}
+
+<Визуализация репроекции восстановленной глобальной 3D позы
+и непосредственно самой трехмерной позы (и камеры)>
+
+\end{frame}
+
+
+
+
+\begin{frame}{Результаты. Режим стерео.}
+
+<Визуализация репроекции восстановленной глобальной 3D позы
+и непосредственно самой трехмерной позы (и камер)>
+
+\end{frame}
+
+
+
+
+
+\begin{frame}{Заключение}
+
+В данной работе были предложены методы, в совокупности
+позволяющие оценить трехмерную позу человека из <<сырых>>
+(in-the-wild) видео.
+
+\begin{enumerate}
+
+\item Реализован (в виде программного комплекса) способ
+восстановления относительной 3D позы человека.
+
+\item Предложен способ оценки трехмерной позы в мировых координатах
+при наличии установки с одной камерой.
+
+\item Предложен способ оценки трехмерной позы в мировых координатах
+при наличии установки с двумя камерами.
+
+\item Проведены численные эксперименты, позволившие оценить работоспособность
+предлагаемых методов.
+
+\end{enumerate}
+
+\end{frame}
+
+
+
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+\begin{frame}[allowframebreaks]{Список литературы}
+\nocite{*}
+\selectlanguage{russian}
+\printbibliography[filter=russianonly, resetnumbers=false, heading=none]
+
+\selectlanguage{english}
+\printbibliography[filter=englishonly, resetnumbers=false, heading=none]
+
+\selectlanguage{russian}
+\printbibliography[filter=links, resetnumbers=false, heading=none]
+
+\end{frame}
 
 
 \end{document}
