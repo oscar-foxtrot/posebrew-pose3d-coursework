@@ -33,6 +33,13 @@
   keyword=link
 }
 
+\newcommand{\plainfootfullcite}[1]{%
+  {%
+    \renewcommand*{\mkbibparens}[1]{##1}%
+    \footfullcite{#1}%
+  }%
+}
+
 \usepackage{makecell}
 
 \usepackage[utf8]{inputenc}
@@ -57,6 +64,7 @@
 \renewcommand{\thempfootnote}{\arabic{mpfootnote}}
 \makeatother
 \setbeamertemplate{footnote}[number]
+
 
 \setbeamertemplate{title page}{
     \begin{centering}
@@ -175,7 +183,7 @@ Dataset\footnotemark}
 
 \end{columns}
 %REMOVE BEFORE REMOVE BEFORE REMOVE BEFORE
-\footnotetext[1]{{\selectlanguage{english}\footfullcite{conf33}}}
+\footnotetext[1]{\selectlanguage{english}\plainfootfullcite{conf33}}
 
 \end{frame}
 
@@ -230,7 +238,7 @@ Dataset}
 %}
 %\end{minipage}
 \small{
-Восстановленные
+Восстановленная
 трехмерная поза и
 расположение камер
 }
@@ -385,18 +393,37 @@ Dataset}
 
 \column{0.35\textwidth}
 
-Для оценки 2D позы и получения относительной 3D позы
-используются нейросетевые модели.
+\vspace{-2em}
+\begin{center}
 
-\vspace{1em}
+\begin{minipage}{0.9\textwidth}
+\centering
 
-<
-Простая диаграмма со следующим текстом:
-"Оценка 2D позы покадрово с помощью предобученной сверточной
-нейросети на базе CSPNeXt[библиограф. ссылка]" 
-$\rightarrow$ "Оценка 3D позы на окнах фиксированой длины с помощью
-предобученной трансформерной модели на базе DSTFormer[библиограф. ссылка]" 
-$\rightarrow$ "Временное сглаживание"\:>
+\begin{block}{}
+Оценка 2D позы покадрово с помощью предобученной сверточной
+нейросети на базе CSPNeXt\footnotemark
+\end{block}
+
+\vspace{-0.3em}
+$\downarrow$
+\vspace{-0.3em}
+
+\begin{block}{}
+Оценка 3D позы на окнах фиксированой длины с помощью
+предобученной трансформерной модели на базе DSTFormer\footnotemark
+\end{block}
+
+\vspace{-0.3em}
+$\downarrow$
+\vspace{-0.3em}
+
+\begin{block}{}
+Временное сглаживание
+\end{block}
+
+\end{minipage}
+
+\end{center}
 
 
 \column{0.65\textwidth}
@@ -420,14 +447,10 @@ w_k(t) = \frac{G(t - t_k)}{\sum_{j=1}^{3} G(t - t_j)},
 
 \vspace{0.2em}
 
-<Диаграмма, графически показывающая значения динамических весов на
-перекрывающихся окнах с
-визуализацией в виде гауссовских "колоколов" (как здесь, сверху
-\url{http://www.ai.mit.edu/courses/6.892/lect14-html/sld017.gif})\:>
-
 
 \end{columns}
-
+\footnotetext[2]{{\selectlanguage{english}\plainfootfullcite{conf8}}}
+\footnotetext[3]{{\selectlanguage{english}\plainfootfullcite{conf3}}}
 \end{frame}
 
 
@@ -1051,7 +1074,7 @@ $(f_1, f_2)$ и находя для каждой из них значение м
 Выражая $f_1=e^{z_1}, f_2=e^{z_2}$, получаем задачу безусловной
 оптимизации отн. $(z_1, z_2)$. В работе предлагается решать
 ее с помощью метода Нелдера-Мида\footnotemark.
-\footnotetext[7]{{\selectlanguage{english}\footfullcite{nelder1965simplex}}}
+\footnotetext[9]{\selectlanguage{english}\plainfootfullcite{nelder1965simplex}}
 Типичный ландшафт функции потерь визуализирован на рисунке справа
 (значения усечены сверху):
 \column{0.55\textwidth}
@@ -1062,6 +1085,384 @@ $(f_1, f_2)$ и находя для каждой из них значение м
 
 \end{frame}
 
+
+
+
+
+
+\begin{frame}{Результаты. Монокулярный режим}
+
+\begin{columns}
+
+\column{0.7\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/reproj_mono_frame_tp0.png}
+\vspace{0.6em}
+{\small Исходный кадр с наложением двумерных поз }
+
+{\tiny Источник оригинального видео: CMU Panoptic
+Dataset}
+
+\column{0.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/pose_3d_mono_frame_tp0.png}
+{\small Реконструированная трехмерная поза в мировых координатах}
+
+\end{columns}
+
+\end{frame}
+\begin{frame}{Результаты. Монокулярный режим}
+
+\begin{columns}
+
+\column{0.7\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/reproj_mono_frame_tp5.png}
+\vspace{0.6em}
+{\small Исходный кадр с наложением двумерных поз }
+
+{\tiny Источник оригинального видео: CMU Panoptic
+Dataset}
+
+\column{0.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/pose_3d_mono_frame_tp5.png}
+{\small Реконструированная трехмерная поза в мировых координатах}
+
+\end{columns}
+
+\end{frame}
+\begin{frame}{Результаты. Монокулярный режим}
+
+\begin{columns}
+
+\column{0.7\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/reproj_mono_frame_tp10.png}
+\vspace{0.6em}
+{\small Исходный кадр с наложением двумерных поз }
+
+{\tiny Источник оригинального видео: CMU Panoptic
+Dataset}
+
+\column{0.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/pose_3d_mono_frame_tp10.png}
+{\small Реконструированная трехмерная поза в мировых координатах}
+
+\end{columns}
+
+\end{frame}
+\begin{frame}{Результаты. Монокулярный режим}
+
+\begin{columns}
+
+\column{0.7\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/reproj_mono_frame_tp15.png}
+\vspace{0.6em}
+{\small Исходный кадр с наложением двумерных поз }
+
+{\tiny Источник оригинального видео: CMU Panoptic
+Dataset}
+
+\column{0.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/pose_3d_mono_frame_tp15.png}
+{\small Реконструированная трехмерная поза в мировых координатах}
+
+\end{columns}
+
+\end{frame}
+\begin{frame}{Результаты. Монокулярный режим}
+
+\begin{columns}
+
+\column{0.7\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/reproj_mono_frame_tp20.png}
+\vspace{0.6em}
+{\small Исходный кадр с наложением двумерных поз }
+
+{\tiny Источник оригинального видео: CMU Panoptic
+Dataset}
+
+\column{0.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/pose_3d_mono_frame_tp20.png}
+{\small Реконструированная трехмерная поза в мировых координатах}
+
+\end{columns}
+
+\end{frame}
+\begin{frame}{Результаты. Монокулярный режим}
+
+\begin{columns}
+
+\column{0.7\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/reproj_mono_frame_tp25.png}
+\vspace{0.6em}
+{\small Исходный кадр с наложением двумерных поз }
+
+{\tiny Источник оригинального видео: CMU Panoptic
+Dataset}
+
+\column{0.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/pose_3d_mono_frame_tp25.png}
+{\small Реконструированная трехмерная поза в мировых координатах}
+
+\end{columns}
+
+\end{frame}
+\begin{frame}{Результаты. Монокулярный режим}
+
+\begin{columns}
+
+\column{0.7\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/reproj_mono_frame_tp30.png}
+\vspace{0.6em}
+{\small Исходный кадр с наложением двумерных поз}
+
+{\tiny Источник оригинального видео: CMU Panoptic
+Dataset}
+
+\column{0.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/pose_3d_mono_frame_tp30.png}
+{\small Реконструированная трехмерная поза в мировых координатах}
+
+\end{columns}
+
+\end{frame}
+\begin{frame}{Результаты. Монокулярный режим}
+
+\begin{columns}
+
+\column{0.7\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/reproj_mono_frame_tp35.png}
+\vspace{0.6em}
+{\small Исходный кадр с наложением двумерных поз}
+
+{\tiny Источник оригинального видео: CMU Panoptic
+Dataset}
+
+\column{0.4\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/pose_3d_mono_frame_tp35.png}
+{\small Реконструированная трехмерная поза в мировых координатах}
+
+\end{columns}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}{Результаты. Режим стерео}
+
+\begin{columns}
+
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/reproj_stereo_frame_tp0.png}
+\vspace{0.6em}
+%{\small Исходные кадры с наложением двумерных поз}
+
+%{\tiny Источник оригинального видео: CMU Panoptic
+%Dataset}
+
+\vspace{-2.5em}
+\column{0.5\textwidth}
+\centering
+\vspace{1em}
+\includegraphics[width=0.9\textwidth]{images/pose_3d_stereo_frame_tp0.png}
+
+{\small На рис. слева: исходные RGB-кадры с наложением двумерных поз. \\
+На рис. сверху: реконструированная трехмерная поза в мировых координатах.}
+
+\end{columns}
+
+\end{frame}
+\begin{frame}{Результаты. Режим стерео}
+
+\begin{columns}
+
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/reproj_stereo_frame_tp5.png}
+\vspace{0.6em}
+%{\small Исходные кадры с наложением двумерных поз}
+
+%{\tiny Источник оригинального видео: CMU Panoptic
+%Dataset}
+
+\vspace{-2.5em}
+\column{0.5\textwidth}
+\centering
+\vspace{1em}
+\includegraphics[width=0.9\textwidth]{images/pose_3d_stereo_frame_tp5.png}
+
+{\small На рис. слева: исходные RGB-кадры с наложением двумерных поз. \\
+На рис. сверху: реконструированная трехмерная поза в мировых координатах.}
+
+\end{columns}
+
+\end{frame}
+\begin{frame}{Результаты. Режим стерео}
+
+\begin{columns}
+
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/reproj_stereo_frame_tp10.png}
+\vspace{0.6em}
+%{\small Исходные кадры с наложением двумерных поз}
+
+%{\tiny Источник оригинального видео: CMU Panoptic
+%Dataset}
+
+\vspace{-2.5em}
+\column{0.5\textwidth}
+\centering
+\vspace{1em}
+\includegraphics[width=0.9\textwidth]{images/pose_3d_stereo_frame_tp10.png}
+
+{\small На рис. слева: исходные RGB-кадры с наложением двумерных поз. \\
+На рис. сверху: реконструированная трехмерная поза в мировых координатах.}
+
+\end{columns}
+
+\end{frame}
+\begin{frame}{Результаты. Режим стерео}
+
+\begin{columns}
+
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/reproj_stereo_frame_tp15.png}
+\vspace{0.6em}
+%{\small Исходные кадры с наложением двумерных поз}
+
+%{\tiny Источник оригинального видео: CMU Panoptic
+%Dataset}
+
+\vspace{-2.5em}
+\column{0.5\textwidth}
+\centering
+\vspace{1em}
+\includegraphics[width=0.9\textwidth]{images/pose_3d_stereo_frame_tp15.png}
+
+{\small На рис. слева: исходные RGB-кадры с наложением двумерных поз. \\
+На рис. сверху: реконструированная трехмерная поза в мировых координатах.}
+
+\end{columns}
+
+\end{frame}
+\begin{frame}{Результаты. Режим стерео}
+
+\begin{columns}
+
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/reproj_stereo_frame_tp20.png}
+\vspace{0.6em}
+%{\small Исходные кадры с наложением двумерных поз}
+
+%{\tiny Источник оригинального видео: CMU Panoptic
+%Dataset}
+
+\vspace{-2.5em}
+\column{0.5\textwidth}
+\centering
+\vspace{1em}
+\includegraphics[width=0.9\textwidth]{images/pose_3d_stereo_frame_tp20.png}
+
+{\small На рис. слева: исходные RGB-кадры с наложением двумерных поз. \\
+На рис. сверху: реконструированная трехмерная поза в мировых координатах.}
+
+\end{columns}
+
+\end{frame}
+\begin{frame}{Результаты. Режим стерео}
+
+\begin{columns}
+
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/reproj_stereo_frame_tp25.png}
+\vspace{0.6em}
+%{\small Исходные кадры с наложением двумерных поз}
+
+%{\tiny Источник оригинального видео: CMU Panoptic
+%Dataset}
+
+\vspace{-2.5em}
+\column{0.5\textwidth}
+\centering
+\vspace{1em}
+\includegraphics[width=0.9\textwidth]{images/pose_3d_stereo_frame_tp25.png}
+
+{\small На рис. слева: исходные RGB-кадры с наложением двумерных поз. \\
+На рис. сверху: реконструированная трехмерная поза в мировых координатах.}
+
+\end{columns}
+
+\end{frame}
+\begin{frame}{Результаты. Режим стерео}
+
+\begin{columns}
+
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/reproj_stereo_frame_tp30.png}
+\vspace{0.6em}
+%{\small Исходные кадры с наложением двумерных поз}
+
+%{\tiny Источник оригинального видео: CMU Panoptic
+%Dataset}
+
+\vspace{-2.5em}
+\column{0.5\textwidth}
+\centering
+\vspace{1em}
+\includegraphics[width=0.9\textwidth]{images/pose_3d_stereo_frame_tp30.png}
+
+{\small На рис. слева: исходные RGB-кадры с наложением двумерных поз. \\
+На рис. сверху: реконструированная трехмерная поза в мировых координатах.}
+
+\end{columns}
+
+\end{frame}
+\begin{frame}{Результаты. Режим стерео}
+
+\begin{columns}
+
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/reproj_stereo_frame_tp35.png}
+\vspace{0.6em}
+%{\small Исходные кадры с наложением двумерных поз}
+
+%{\tiny Источник оригинального видео: CMU Panoptic
+%Dataset}
+
+\vspace{-2.5em}
+\column{0.5\textwidth}
+\centering
+\vspace{1em}
+\includegraphics[width=0.9\textwidth]{images/pose_3d_stereo_frame_tp35.png}
+
+{\small На рис. слева: исходные RGB-кадры с наложением двумерных поз. \\
+На рис. сверху: реконструированная трехмерная поза в мировых координатах.}
+
+\end{columns}
+
+\end{frame}
 
 
 
@@ -1100,26 +1501,6 @@ $(f_1, f_2)$ и находя для каждой из них значение м
 \includegraphics[width=1\textwidth]{images/offset_469_474_marg40.pdf}
 
 \end{columns}
-
-\end{frame}
-
-
-
-
-\begin{frame}{Результаты. Монокулярный режим.}
-
-<Визуализация репроекции восстановленной глобальной 3D позы
-и непосредственно самой трехмерной позы (и камеры)>
-
-\end{frame}
-
-
-
-
-\begin{frame}{Результаты. Режим стерео.}
-
-<Визуализация репроекции восстановленной глобальной 3D позы
-и непосредственно самой трехмерной позы (и камер)>
 
 \end{frame}
 
